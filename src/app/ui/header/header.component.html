@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="mat-elevation-z5">
+  <div>
+    <button
+      (click)="onOpenSidenav()"
+      mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/">Skydive Iowa</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout class="navigation-items" fxLayoutGap="10px">
+      <li *ngIf="!authenticated"><a routerLink="/register">Register</a></li>
+      <li *ngIf="!authenticated"><a routerLink="/login">Login</a></li>
+      <li *ngIf="authenticated"><a (click)="onLogout()">Logout</a></li>
+    </ul>
+  </div>
+</mat-toolbar>

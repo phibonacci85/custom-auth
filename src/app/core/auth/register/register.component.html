@@ -1,7 +1,7 @@
 <div fxFill fxLayout="column" fxLayoutAlign="start center">
   <mat-card fxFlexOffset="5">
     <mat-card-header>
-      <mat-card-title [ngStyle]="{'text-align': 'center'}"><h1>Login</h1></mat-card-title>
+      <mat-card-title [ngStyle]="{'text-align': 'center'}"><h1>Register</h1></mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px"
@@ -22,7 +22,7 @@
           <mat-error *ngIf="!emailInput.hasError('required')">Email is invalid
           </mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field hintLabel="Should be at least 6 characters long">
           <input
             type="password"
             matInput
@@ -30,9 +30,17 @@
             ngModel
             name="password"
             required
+            minLength="6"
             #pwInput="ngModel">
-          <mat-error *ngIf="pwInput.hasError('required')">Field must not be empty</mat-error>
+          <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint>
+          <mat-error>Has to be at least 6 characters long</mat-error>
         </mat-form-field>
+        <mat-checkbox
+          name="agree"
+          required
+          color="primary"
+          ngModel>Agree to Terms and Conditions.
+        </mat-checkbox>
         <button
           *ngIf="!(isLoading$ | async)"
           type="submit"
@@ -41,7 +49,6 @@
           [disabled]="f.invalid">Submit
         </button>
         <mat-spinner
-          color="accent"
           *ngIf="(isLoading$ | async)"></mat-spinner>
       </form>
     </mat-card-content>

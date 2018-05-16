@@ -33,6 +33,16 @@ export function coreReducer(state = initialState, action: CoreActions.All) {
         user: action.payload,
         loading: false,
       };
+    case CoreActions.REGISTER:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CoreActions.LOGIN:
+      return {
+        ...state,
+        loading: true,
+      };
     case CoreActions.LOGOUT:
       return {
         ...state,

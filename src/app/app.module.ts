@@ -9,6 +9,9 @@ import { reducers } from './app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CoreEffects } from './core/core.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MaterialModule } from './material.module';
+import { UiModule } from './ui/ui.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,11 +19,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({maxAge: 25}),
     EffectsModule.forRoot([CoreEffects]),
     CoreModule,
+    UiModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

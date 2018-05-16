@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/themes/skydive-iowa.scss",
               "src/styles.scss"
             ],
             "scripts": []

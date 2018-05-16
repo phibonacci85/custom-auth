@@ -5,6 +5,7 @@ export const AUTHENTICATE = '[Core] Authenticate';
 export const NOT_AUTHENTICATED = '[Core] Not Authenticated';
 export const FETCH_USER = '[Core] Fetch User';
 export const AUTHENTICATED = '[Core] Authenticated';
+export const REGISTER = '[Core] Register';
 export const LOGIN = '[Core] Login';
 export const LOGOUT = '[Core] Logout';
 export const ERROR = '[Core] Error';
@@ -33,10 +34,16 @@ export class Authenticated implements Action {
   constructor(public payload: User) {}
 }
 
+export class Register implements Action {
+  readonly type = REGISTER;
+
+  constructor(public payload: {username: string, password: string}) {}
+}
+
 export class Login implements Action {
   readonly type = LOGIN;
 
-  constructor(public payload?: any) {}
+  constructor(public payload: {username: string, password: string}) {}
 }
 
 export class Logout implements Action {
@@ -51,4 +58,4 @@ export class Error implements Action {
   constructor(public payload: any) {}
 }
 
-export type All = Authenticate | NotAuthenticated | FetchUser | Authenticated | Logout | Error;
+export type All = Authenticate | NotAuthenticated | FetchUser | Authenticated | Register | Login | Logout | Error;

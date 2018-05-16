@@ -56,10 +56,40 @@ export class CoreEffects {
   );
 
   @Effect()
-  login$ = this.actions$.ofType(CoreActions.LOGIN).pipe(
-    map((action: CoreActions.Logout) => action.payload),
-    switchMap(payload => from(this.googleLogin())),
+  register$ = this.actions$.ofType(CoreActions.REGISTER).pipe(
+    map((action: CoreActions.Register) => action.payload),
+    switchMap((authData: { username: string, password: string }) => from(this.afAuth.auth.createUserWithEmailAndPassword(
+      authData.username,
+      authData.password,
+    ))),
+    switchMap(credential => {
+      console.log(credential);
+      return this.afs.doc(`users/${credential.user.uid}`).set({
+        uid: credential.user.uid,
+        displayName: 'Something',
+        photoURL: '',
+        email: '',
+        roles: {
+          admin: false,
+          jumper: false,
+          manager: false,
+          user: true,
+        },
+      });
+    }),
     map(credential => new CoreActions.Authenticate()),
+    catchError(err => of(new CoreActions.Error(err))),
+  );
+
+  @Effect()
+  login$ = this.actions$.ofType(CoreActions.LOGIN).pipe(
+    map((action: CoreActions.Login) => action.payload),
+    switchMap((authData: { username: string, password: string }) => from(this.afAuth.auth.signInWithEmailAndPassword(
+      authData.username,
+      authData.password,
+    ))),
+    map(credential => new CoreActions.Authenticate()),
+    catchError(err => of(new CoreActions.Error(err))),
   );
 
   @Effect()

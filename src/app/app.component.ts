@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from './app.reducer';
 import * as CoreActions from './core/core.actions';
+import * as UiActions from './ui/ui.actions';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   user$: Observable<User>;
   loading$: Observable<boolean>;
   error$: Observable<any>;
+  showSidenav$: Observable<boolean>;
 
   constructor(private store: Store<fromApp.State>) {}
 
@@ -22,10 +24,11 @@ export class AppComponent implements OnInit {
     this.user$ = this.store.select(fromApp.getCoreUser);
     this.loading$ = this.store.select(fromApp.getCoreLoading);
     this.error$ = this.store.select(fromApp.getCoreError);
+    this.showSidenav$ = this.store.select(fromApp.getUiIsSidenavOpen);
     this.store.dispatch(new CoreActions.Authenticate());
   }
 
-  logout() {
-    this.store.dispatch(new CoreActions.Logout());
+  onCloseSidenav() {
+    this.store.dispatch(new UiActions.SetSidenavClosed());
   }
 }

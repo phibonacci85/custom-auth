@@ -7,14 +7,14 @@ import * as fromApp from '../../../app.reducer';
 import * as CoreActions from '../../core.actions';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-register',
+  templateUrl: './register.component.html',
   styleUrls: [
-    './login.theme.scss',
-    './login.component.scss',
+    './register-theme.scss',
+    './register.component.scss',
   ],
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   isLoading$: Observable<boolean>;
 
   constructor(
@@ -26,10 +26,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.store.dispatch(new CoreActions.Login({
+    this.store.dispatch(new CoreActions.Register({
       username: form.value.email,
       password: form.value.password,
     }));
   }
-
 }

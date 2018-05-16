@@ -1,0 +1,42 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://www.google.com/design/spec/style/color.html
+$skydive-iowa-app-primary: mat-palette($mat-blue-gray);
+$skydive-iowa-app-accent:  mat-palette($mat-deep-orange, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$skydive-iowa-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$skydive-iowa-app-theme: mat-light-theme($skydive-iowa-app-primary, $skydive-iowa-app-accent, $skydive-iowa-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+.skydive-iowa-theme {
+  @include angular-material-theme($skydive-iowa-app-theme);
+}
+
+.primaryBG {
+  background-color: mat-color($skydive-iowa-app-primary);
+}
+.accentBG {
+  background-color: mat-color($skydive-iowa-app-accent);
+}
+
+//@import '../app/auth/register/register-theme.scss';
+//@include app-register-theme($skydive-iowa-app-theme);
+//
+//@import '../app/app.theme.scss';
+//@include app-theme($skydive-iowa-app-theme);
+//
+//@import '../app/core/core.theme.scss';
+//@include core-theme($skydive-iowa-app-theme);

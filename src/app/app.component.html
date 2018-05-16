@@ -1,17 +1,16 @@
-<header>
-  <div *ngIf="user$ | async; let user; else guest">
-    <h1>{{user.displayName}}</h1>
-    <h1>{{user.email}}</h1>
-    <h1>{{user.photoURL}}</h1>
-    <h1>{{user.uid}}</h1>
-    <pre>{{user.roles | json}}</pre>
-    <button (click)="logout()">Logout</button>
-  </div>
-  <ng-template #guest>GUEST MODE!</ng-template>
-</header>
-<main>
-  <router-outlet></router-outlet>
-</main>
-<div *ngIf="error$ | async as err">
-  <pre>{{err | json}}</pre>
-</div>
+<mat-sidenav-container
+  (backdropClick)="onCloseSidenav()">
+  <mat-sidenav
+    disableClose
+    #sidenav
+    [opened]="showSidenav$ | async"
+    role="navigation">
+    <app-sidenav-list [authenticated]="user$ | async"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxLayout="column">
+    <app-header [authenticated]="user$ | async"></app-header>
+    <main fxFlex="grow">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
