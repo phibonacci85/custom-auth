@@ -8,6 +8,8 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import * as CoreActions from './core.actions';
 import { User } from '../models/user.model';
 import * as firebase from 'firebase';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CoreEffects {
@@ -38,18 +40,7 @@ export class CoreEffects {
     map((action: CoreActions.FetchUser) => action.payload),
     switchMap((uid: string) => this.afs.doc<User>(`users/${uid}`).valueChanges()),
     map((currentUser: User) => {
-      /*
-      const currentUser: User = {
-        uid: uid,
-        displayName: 'John Baker',
-        roles: {
-          admin: true,
-          manager: false,
-          user: false,
-          jumper: false,
-        },
-      };
-      */
+      this.router.navigate(['/welcome']);
       return new CoreActions.Authenticated(currentUser);
     }),
     catchError(err => of(new CoreActions.Error(err))),
@@ -100,9 +91,20 @@ export class CoreEffects {
     catchError(err => of(new CoreActions.Error(err))),
   );
 
+  @Effect({dispatch: false})
+  error$ = this.actions$.ofType(CoreActions.ERROR).pipe(
+    map((action: CoreActions.Error) => action.payload),
+    tap(payload => {
+      console.log(payload);
+      this.snackBar.open(payload.message);
+    }),
+  );
+
   constructor(
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth,
+    private snackBar: MatSnackBar,
+    private router: Router,
     private actions$: Actions,
   ) {}
 

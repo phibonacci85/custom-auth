@@ -7,7 +7,13 @@
     <h4 matLine>Manifest</h4>
   </a>
   <mat-divider></mat-divider>
-  <h3 matSubheader>Notes</h3>
+  <h3 matSubheader>User</h3>
+  <a mat-list-item
+    *ngIf="authenticated"
+    routerLink="/profile">
+    <mat-icon matListIcon>account_circle</mat-icon>
+    <h4 matLine>Profile</h4>
+  </a>
   <a mat-list-item
     *ngIf="!authenticated"
     routerLink="/register"

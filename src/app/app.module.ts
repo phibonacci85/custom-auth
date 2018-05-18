@@ -12,10 +12,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from './material.module';
 import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ManifestComponent } from './manifest/manifest.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    WelcomeComponent,
+    ProfileComponent,
+    ManifestComponent,
   ],
   imports: [
     BrowserModule,
